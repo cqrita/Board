@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Board</title>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+	</head>
+	<body>
+		<div class="board-page">
+			<div class="board">
+				<% if(typeof user_name != 'undefined'){ %>
+				<p align="right"><%=user_name%>님 환영합니다.<% } %><button id="btn_board_Log-out">Log-out</button></p>
+				<h1>유저 목록</h1>
+				<table class="title">
+					<tr>
+						<th width="10%">번호</th>
+						<th width="10%">아이디</th>
+						<th width="10%">이름</th>
+						<th width="10%">이메일</th>
+						<th width="60%">생성일자</th>
+					</tr>
+				</table>
+				<table class="content">
+					<% if(status == 'OK'){ %>
+						<% if(data.length ==0) { %>
+							<tr>
+								<td colspan="4">데이터가 없다.</td>
+							</tr>
+						<% }else{ %>
+							<% data.forEach(function(item, index){ %>
+								<tr>
+									<td width="10%"><%= item.uid %></td>
+									<td width="10%"><a href="/userList/update?uid=<%= item.uid %>"><%= item.login_id %></a></td>
+									<td width="10%"><%= item.user_name %></td>
+									<td width="10%"><%= item.email %></td>
+									<td width="60%"><%= item.cdate %></td>
+								</tr>
+							<% }); %>
+						<% } %>
+					<% } else{ %>
+						<tr>
+							<td colspan="4">에러 잠시 후 다시 시작하세요.</td>
+						</tr>
+					<% } %>
+				</table>
+				<button id="btn_board_change">게시물 목록</button>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="/javascripts/userList.js"></script>
+	</body>
+</html>
